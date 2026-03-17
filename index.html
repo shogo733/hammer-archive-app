@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新型ハンマー研究アーカイブ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .title-box {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 12px 0;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 640px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 14px;
+      background: #fff;
+      margin-bottom: 12px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      border: none;
+      background: #111827;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .meter-row {
+      margin-bottom: 14px;
+    }
+
+    .meter-label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid #9ca3af;
+      background: white;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: #111827;
+      border-color: #111827;
+    }
+
+    .structure-chart {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 20px;
+    }
+
+    .center-box {
+      text-align: center;
+      margin: 16px 0;
+    }
+
+    .pill {
+      display: inline-block;
+      background: white;
+      border: 2px solid #111827;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: bold;
+    }
+
+    .node {
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+      min-height: 52px;
+    }
+
+    .node-title {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .output {
+      white-space: pre-wrap;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title-box">
+      <h1>新型ハンマー研究アーカイブ</h1>
+      <p>MacでもiPhoneでも編集しやすい、研究記録・構造管理用のシンプル版アプリ</p>
+    </div>
+
+    <div class="card">
+      <h2>基本情報</h2>
+      <div class="grid grid-2">
+        <div>
+          <label>プロジェクト名</label>
+          <input id="projectName" value="新型ハンマープロジェクト" />
+        </div>
+        <div>
+          <label>アーカイブ番号</label>
+          <input id="archiveNo" value="ARCH-001" />
+        </div>
+        <div>
+          <label>記録日</label>
+          <input id="recordDate" type="date" />
+        </div>
+        <div>
+          <label>開発フェーズ</label>
+          <select id="phase">
+            <option>アイデア</option>
+            <option>概念設計</option>
+            <option>機構設計</option>
+            <option>シミュレーション</option>
+            <option>試作</option>
+            <option>改良</option>
+            <option>実験</option>
+            <option>実用化</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>技術進展ログ</h2>
+      <label>今回の目的</label>
+      <textarea id="goal"></textarea>
+
+      <label>実施内容</label>
+      <textarea id="workDone"></textarea>
+
+      <label>得られた結果</label>
+      <textarea id="result"></textarea>
+
+      <label>問題点</label>
+      <textarea id="issues"></textarea>
+
+      <label>次のアクション</label>
+      <textarea id="nextAction"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>アーカイブプラス機能</h2>
+      <label>関連タグ</label>
+      <input id="archiveTag" value="構造検討" />
+
+      <label>関連資料リンク・CAD名・画像名</label>
+      <input id="relatedDoc" />
+
+      <label>リスクメモ</label>
+      <textarea id="riskMemo"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>進行メーター</h2>
+
+      <div class="meter-row">
+        <div class="meter-label">アイデア</div>
+        <div class="dots" data-target="idea"></div>
+      </div>
+
+      <div class="meter-row">
+        <div class="meter-label">設計</div>
+        <div class="dots" data-target="design"></div>
+      </div>
+
+      <div class="meter-row">
+        <div class="meter-label">試作</div>
+        <div class="dots" data-target="prototype"></div>
+      </div>
+
+      <div class="meter-row">
+        <div class="meter-label">実験</div>
+        <div class="dots" data-target="test"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>実体構造図チャート</h2>
+
+      <div class="grid grid-2">
+        <div>
+          <label>中心実体</label>
+          <input id="entityCore" value="新型ハンマー本体" />
+        </div>
+        <div>
+          <label>上部構造</label>
+          <input id="entityUpper" value="吊り具・上部フレーム" />
+        </div>
+        <div>
+          <label>駆動系</label>
+          <input id="entityDrive" value="ワイヤ駆動・回転変換" />
+        </div>
+        <div>
+          <label>掘削系</label>
+          <input id="entityDig" value="掘削部・刃先" />
+        </div>
+        <div>
+          <label>開閉・把持系</label>
+          <input id="entityOpenClose" value="開閉機構・把持部" />
+        </div>
+        <div>
+          <label>泥水対策系</label>
+          <input id="entitySeal" value="泥水対策・シール" />
+        </div>
+        <div>
+          <label>センサー・計測系</label>
+          <input id="entitySensor" value="センサー・計測" />
+        </div>
+      </div>
+
+      <div class="structure-chart">
+        <div class="center-box">
+          <div class="node">
+            <div class="node-title">上部構造</div>
+            <div id="viewUpper"></div>
+          </div>
+        </div>
+
+        <div class="center-box">│</div>
+
+        <div class="center-box">
+          <div class="pill" id="viewCore"></div>
+        </div>
+
+        <div class="grid grid-2" style="margin-top: 16px;">
+          <div class="node">
+            <div class="node-title">駆動</div>
+            <div id="viewDrive"></div>
+          </div>
+          <div class="node">
+            <div class="node-title">掘削</div>
+            <div id="viewDig"></div>
+          </div>
+          <div class="node">
+            <div class="node-title">開閉</div>
+            <div id="viewOpenClose"></div>
+          </div>
+          <div class="node">
+            <div class="node-title">泥水対策</div>
+            <div id="viewSeal"></div>
+          </div>
+          <div class="node">
+            <div class="node-title">計測</div>
+            <div id="viewSensor"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>出力プレビュー</h2>
+      <div id="output" class="output"></div>
+      <div style="margin-top: 12px;">
+        <button onclick="updateOutput()">更新</button>
+        <button onclick="copyOutput()">コピー</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scores = {
+      idea: 1,
+      design: 2,
+      prototype: 1,
+      test: 0
+    };
+
+    function createDots(targetName) {
+      const wrap = document.querySelector(`[data-target="${targetName}"]`);
+      wrap.innerHTML = "";
+
+      for (let i = 1; i <= 5; i++) {
+        const dot = document.createElement("button");
+        dot.className = "dot" + (i <= scores[targetName] ? " active" : "");
+        dot.type = "button";
+        dot.onclick = function () {
+          scores[targetName] = i;
+          createDots(targetName);
+          updateOutput();
+        };
+        wrap.appendChild(dot);
+      }
+    }
+
+    function syncStructureChart() {
+      document.getElementById("viewCore").textContent = document.getElementById("entityCore").value;
+      document.getElementById("viewUpper").textContent = document.getElementById("entityUpper").value;
+      document.getElementById("viewDrive").textContent = document.getElementById("entityDrive").value;
+      document.getElementById("viewDig").textContent = document.getElementById("entityDig").value;
+      document.getElementById("viewOpenClose").textContent = document.getElementById("entityOpenClose").value;
+      document.getElementById("viewSeal").textContent = document.getElementById("entitySeal").value;
+      document.getElementById("viewSensor").textContent = document.getElementById("entitySensor").value;
+    }
+
+    function updateOutput() {
+      syncStructureChart();
+
+      const text = `【プロジェクト名】
+${document.getElementById("projectName").value}
+
+【アーカイブ番号】
+${document.getElementById("archiveNo").value}
+
+【記録日】
+${document.getElementById("recordDate").value}
+
+【開発フェーズ】
+${document.getElementById("phase").value}
+
+【今回の目的】
+${document.getElementById("goal").value}
+
+【実施内容】
+${document.getElementById("workDone").value}
+
+【得られた結果】
+${document.getElementById("result").value}
+
+【問題点】
+${document.getElementById("issues").value}
+
+【次のアクション】
+${document.getElementById("nextAction").value}
+
+【関連タグ】
+${document.getElementById("archiveTag").value}
+
+【関連資料リンク】
+${document.getElementById("relatedDoc").value}
+
+【リスクメモ】
+${document.getElementById("riskMemo").value}
+
+【進行メーター】
+アイデア: ${scores.idea}/5
+設計: ${scores.design}/5
+試作: ${scores.prototype}/5
+実験: ${scores.test}/5
+
+【実体構造図チャート】
+中心実体: ${document.getElementById("entityCore").value}
+上部構造: ${document.getElementById("entityUpper").value}
+駆動系: ${document.getElementById("entityDrive").value}
+掘削系: ${document.getElementById("entityDig").value}
+開閉・把持系: ${document.getElementById("entityOpenClose").value}
+泥水対策系: ${document.getElementById("entitySeal").value}
+センサー・計測系: ${document.getElementById("entitySensor").value}
+`;
+
+      document.getElementById("output").textContent = text;
+    }
+
+    function copyOutput() {
+      const text = document.getElementById("output").textContent;
+      navigator.clipboard.writeText(text);
+      alert("出力をコピーしました");
+    }
+
+    document.getElementById("recordDate").value = new Date().toISOString().slice(0, 10);
+
+    createDots("idea");
+    createDots("design");
+    createDots("prototype");
+    createDots("test");
+    updateOutput();
+
+    [
+      "projectName",
+      "archiveNo",
+      "recordDate",
+      "phase",
+      "goal",
+      "workDone",
+      "result",
+      "issues",
+      "nextAction",
+      "archiveTag",
+      "relatedDoc",
+      "riskMemo",
+      "entityCore",
+      "entityUpper",
+      "entityDrive",
+      "entityDig",
+      "entityOpenClose",
+      "entitySeal",
+      "entitySensor"
+    ].forEach((id) => {
+      document.getElementById(id).addEventListener("input", updateOutput);
+    });
+  </script>
+</body>
+</html>
